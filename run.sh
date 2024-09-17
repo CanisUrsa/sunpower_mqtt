@@ -10,9 +10,10 @@ if [ ! -d "$VENV_DIR" ]; then
   pip install netifaces
   pip install python-nmap
   pip install pyModbusTCP
+  pip install aiohttp
 fi
 
 if [ -d "$VENV_DIR" ]; then
   source "${VENV_DIR}/bin/activate"
-  python sunpower_mqtt.py
+  python "${SCRIPT_DIR}/sunpower_mqtt.py"
 fi

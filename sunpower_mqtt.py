@@ -2,6 +2,7 @@ import asyncio
 import configparser
 from ipaddress import IPv4Network
 import json
+import os
 import time
 
 import aiohttp
@@ -10,8 +11,9 @@ import nmap
 import paho.mqtt.publish as publish
 from pyModbusTCP.client import ModbusClient
 
+config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "config.ini")
 config = configparser.ConfigParser()
-config.read("config.ini")
+config.read(config_path)
 
 PVS_SAMPLE_PERIOD = float(config["pvs"]["sample_period"])
 
