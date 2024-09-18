@@ -51,6 +51,13 @@ WantedBy=multi-user.target
 4. Start the service with `sudo systemctl start sunpower_mqtt.service`
 5. Verify the service is running by watching `systemctl status sunpower_mqtt.service` and making sure **Active** indicates **running** and it has been running for at least 5 minutes.
 
+# Configuring Home Assistant Energy Panel
+
+1. For **Electricity grid** I suggest using *Power Meter Consumption To Home* for **Grid consumption** and *Power Meter Consumption To Grid* for **Return to grid**.
+2. For **Solar panels** I suggest using *Panel X Energy Total* for **Solar production**.
+3. For **Home battery storage** I suggest using *Gateway Invert Total* for **Energy coming out of the battery** and *Gateway Charge Total* for **Energy going in to the battery**.
+
 # Known Issues
 - PVS sampling periods less than 120 seconds can cause communication issues between your PVS and the SunPower cloud services.
-- 
+- Production and consumption data does disagree with what is reported directly in the SunPower application. The error between appears to be small in the grand scheme of things.
+- Battery charge_total and inverter_total values can sometimes be missleading. I have experienced a case where one battery indicated it charged a full 2X its actual capacity. It is unclear if this is has to do with code modifications or if it is something that will periodically happen.
