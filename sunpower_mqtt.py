@@ -469,10 +469,8 @@ def merge_ess_into_pvs():
 async def ess_sample():
     if not ESS_ENABLED:
         return
-    global PVS_DATA
     global ESS_DATA
     global ESS_DATA_SAMPLED
-    global ESS_DATA_VALID
     host = ESS_HOST
     if host == "":
         host = ess_find_host(ESS_PORT)
@@ -531,8 +529,6 @@ def homeassistant_config(device_config, device_key, field, name, state_class, de
 
 
 async def mqtt_publish():
-    global PVS_DATA
-    global ESS_DATA
     available_time = max(PVS_SAMPLE_PERIOD, ESS_SAMPLE_PERIOD) * 1.50
     target_time = time.time() + MQTT_PUBLISH_PERIOD
     while True:
