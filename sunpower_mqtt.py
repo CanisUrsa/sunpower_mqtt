@@ -47,8 +47,8 @@ PVS_METADATA = {
     "pvs": {
         "name": "PVS",
         "fields": {
-            "model":               { "name": "Model",               "source": "pvs", "raw_name": "model",            "transform": None,  "state_class": None, "device_class": None,          "unit_of_measurement": None },
-            "serial_number":       { "name": "Serial Number",       "source": "pvs", "raw_name": "serial_number",    "transform": None,  "state_class": None, "device_class": None,          "unit_of_measurement": None },
+            "model":               { "name": "Model",               "source": "pvs", "raw_name": "MODEL",            "transform": None,  "state_class": None, "device_class": None,          "unit_of_measurement": None },
+            "serial_number":       { "name": "Serial Number",       "source": "pvs", "raw_name": "SERIAL",           "transform": None,  "state_class": None, "device_class": None,          "unit_of_measurement": None },
             "hardware_version":    { "name": "Hardware Version",    "source": "pvs", "raw_name": "HWVER",            "transform": None,  "state_class": None, "device_class": None,          "unit_of_measurement": None },
             "software_version":    { "name": "Software Version",    "source": "pvs", "raw_name": "SWVER",            "transform": None,  "state_class": None, "device_class": None,          "unit_of_measurement": None },
             "error_count":         { "name": "Error Count",         "source": "pvs", "raw_name": "dl_err_count",     "transform": int,   "state_class": None, "device_class": "measurement", "unit_of_measurement": None },
@@ -65,17 +65,17 @@ PVS_METADATA = {
     "hubplus": {
         "name": "Hub+",
         "fields": {
-            "model":            { "name": "Model",            "source": "pvs", "raw_name": "model",         "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "serial_number", "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "hardware_version": { "name": "Hardware Version", "source": "pvs", "raw_name": "hw_version",    "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",         "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "model":            { "name": "Model",            "source": "pvs", "raw_name": "MODEL",      "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL",     "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "hardware_version": { "name": "Hardware Version", "source": "pvs", "raw_name": "hw_version", "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",      "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
         },
     },
     "ess_hub": {
         "name": "ESS Hub",
         "fields": {
-            "model":            { "name": "Model",            "source": "pvs", "raw_name": "model",         "transform": None,  "state_class": None,          "device_class": None,          "unit_of_measurement": None },
-            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "serial_number", "transform": None,  "state_class": None,          "device_class": None,          "unit_of_measurement": None },
+            "model":            { "name": "Model",            "source": "pvs", "raw_name": "MODEL",         "transform": None,  "state_class": None,          "device_class": None,          "unit_of_measurement": None },
+            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL",        "transform": None,  "state_class": None,          "device_class": None,          "unit_of_measurement": None },
             "hardware_version": { "name": "Hardware Version", "source": "pvs", "raw_name": "hw_version",    "transform": None,  "state_class": None,          "device_class": None,          "unit_of_measurement": None },
             "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",         "transform": None,  "state_class": None,          "device_class": None,          "unit_of_measurement": None },
             "temperature":      { "name": "Temperature",      "source": "pvs", "raw_name": "t_degc",        "transform": float, "state_class": "measurement", "device_class": "temperature", "unit_of_measurement": "°C" },
@@ -87,8 +87,8 @@ PVS_METADATA = {
     "pv_disconnect": {
         "name": "PV Disconnect",
         "fields": {
-            "model":            { "name": "Model",            "source": "pvs", "raw_name": "model",          "transform": None, "state_class": None, "device_class": None,          "unit_of_measurement": None },
-            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "serial_number",  "transform": None, "state_class": None, "device_class": None,          "unit_of_measurement": None },
+            "model":            { "name": "Model",            "source": "pvs", "raw_name": "MODEL",          "transform": None, "state_class": None, "device_class": None,          "unit_of_measurement": None },
+            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL",         "transform": None, "state_class": None, "device_class": None,          "unit_of_measurement": None },
             "hardware_version": { "name": "Hardware Version", "source": "pvs", "raw_name": "hw_version",     "transform": None, "state_class": None, "device_class": None,          "unit_of_measurement": None },
             "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",          "transform": None, "state_class": None, "device_class": None,          "unit_of_measurement": None },
             "event_history":    { "name": "Event History",    "source": "pvs", "raw_name": "event_history",  "transform": int,  "state_class": None, "device_class": "measurement", "unit_of_measurement": None },
@@ -105,8 +105,8 @@ PVS_METADATA = {
     "gateway": {
         "name": "Gateway",
         "fields": {
-            "model":            { "name": "Model",            "source": "pvs", "raw_name": "model",             "transform": None,                                                    "state_class": None,               "device_class": None,          "unit_of_measurement": None },
-            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "serial_number",     "transform": None,                                                    "state_class": None,               "device_class": None,          "unit_of_measurement": None },
+            "model":            { "name": "Model",            "source": "pvs", "raw_name": "MODEL",             "transform": None,                                                    "state_class": None,               "device_class": None,          "unit_of_measurement": None },
+            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL",            "transform": None,                                                    "state_class": None,               "device_class": None,          "unit_of_measurement": None },
             "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",             "transform": None,                                                    "state_class": None,               "device_class": None,          "unit_of_measurement": None },
             "inverter_total":   { "name": "Inverter Total",   "source": "ess", "raw_name": "dc_input_total",    "transform": None,                                                    "state_class": "total_increasing", "device_class": "energy",      "unit_of_measurement": "kWh" }, # Comes from modbus register
             "charge_total":     { "name": "Charge Total",     "source": "ess", "raw_name": "dc_output_today",   "transform": None,                                                    "state_class": "total_increasing", "device_class": "energy",      "unit_of_measurement": "kWh" }, # Comes from modbus register
@@ -118,16 +118,16 @@ PVS_METADATA = {
     "storage_inverter": {
         "name": "Storage Inverter",
         "fields": {
-            "model":            { "name": "Model",            "source": "pvs", "raw_name": "model",         "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "serial_number", "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",         "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "model":            { "name": "Model",            "source": "pvs", "raw_name": "MODEL",  "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL", "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",  "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
         },
     },
     "ess_bms": {
         "name": "ESS BMS",
         "fields": {
-            "model":            { "name": "Model",            "source": "pvs", "raw_name": "model",              "transform": None, "state_class": None,               "device_class": None,          "unit_of_measurement": None },
-            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "serial_number",      "transform": None, "state_class": None,               "device_class": None,          "unit_of_measurement": None },
+            "model":            { "name": "Model",            "source": "pvs", "raw_name": "MODEL",              "transform": None, "state_class": None,               "device_class": None,          "unit_of_measurement": None },
+            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL",             "transform": None, "state_class": None,               "device_class": None,          "unit_of_measurement": None },
             "charge_total":     { "name": "Charge Total",     "source": "ess", "raw_name": "bat%d_charge_total", "transform": None, "state_class": "total_increasing", "device_class": "energy",      "unit_of_measurement": "kWh" }, # Comes from modbus register
             "inverter_total":   { "name": "Inverter Total",   "source": "ess", "raw_name": "bat%d_invert_total", "transform": None, "state_class": "total_increasing", "device_class": "energy",      "unit_of_measurement": "kWh" }, # Comes from modbus register
             "charge":           { "name": "Charge",           "source": "ess", "raw_name": "bat%d_soc",          "transform": None, "state_class": None,               "device_class": "battery",     "unit_of_measurement": "%" }, # Comes from modbus register
@@ -139,8 +139,8 @@ PVS_METADATA = {
     "power_meter": {
         "name": "Power Meter",
         "fields": {
-            "model":             { "name": "Model",            "source": "pvs", "raw_name": "model",               "transform": None,  "state_class": None,               "device_class": None,     "unit_of_measurement": None },
-            "serial_number":     { "name": "Serial Number",    "source": "pvs", "raw_name": "serial_number",       "transform": None,  "state_class": None,               "device_class": None,     "unit_of_measurement": None },
+            "model":             { "name": "Model",            "source": "pvs", "raw_name": "MODEL",               "transform": None,  "state_class": None,               "device_class": None,     "unit_of_measurement": None },
+            "serial_number":     { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL",              "transform": None,  "state_class": None,               "device_class": None,     "unit_of_measurement": None },
             "software_version":  { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",               "transform": None,  "state_class": None,               "device_class": None,     "unit_of_measurement": None },
             "energy_total":      { "name": "Energy Total",     "source": "pvs", "raw_name": "net_ltea_3phsum_kwh", "transform": float, "state_class": "total_increasing", "device_class": "energy", "unit_of_measurement": "kWh" },
             "grid_energy_total": { "name": "To Grid",          "source": "pvs", "raw_name": "neg_ltea_3phsum_kwh", "transform": float, "state_class": "total_increasing", "device_class": "energy", "unit_of_measurement": "kWh" },
@@ -150,26 +150,26 @@ PVS_METADATA = {
     "battery": {
         "name": "Battery",
         "fields": {
-            "model":            { "name": "Model",            "source": "pvs", "raw_name": "model",         "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "serial_number", "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "hardware_version": { "name": "Hardware Version", "source": "pvs", "raw_name": "hw_version",    "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",         "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "model":            { "name": "Model",            "source": "pvs", "raw_name": "MODEL",      "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL",     "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "hardware_version": { "name": "Hardware Version", "source": "pvs", "raw_name": "hw_version", "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",      "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
         },
     },
     "energy_storage_system": {
         "name": "ESS",
         "fields": {
-            "model":            { "name": "Model",            "source": "pvs", "raw_name": "model",         "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "serial_number", "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "hardware_version": { "name": "Hardware Version", "source": "pvs", "raw_name": "hw_version",    "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
-            "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",         "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "model":            { "name": "Model",            "source": "pvs", "raw_name": "MODEL",      "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL",     "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "hardware_version": { "name": "Hardware Version", "source": "pvs", "raw_name": "hw_version", "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
+            "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",      "transform": None, "state_class": None, "device_class": None, "unit_of_measurement": None },
         },
     },
     "inverter": {
         "name": "Panel",
         "fields": {
-            "model":            { "name": "Model",            "source": "pvs", "raw_name": "model",           "transform": None,  "state_class": None,               "device_class": None,          "unit_of_measurement": None },
-            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "serial_number",   "transform": None,  "state_class": None,               "device_class": None,          "unit_of_measurement": None },
+            "model":            { "name": "Model",            "source": "pvs", "raw_name": "MODEL",           "transform": None,  "state_class": None,               "device_class": None,          "unit_of_measurement": None },
+            "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL",          "transform": None,  "state_class": None,               "device_class": None,          "unit_of_measurement": None },
             "hardware_version": { "name": "Hardware Version", "source": "pvs", "raw_name": "hw_version",      "transform": None,  "state_class": None,               "device_class": None,          "unit_of_measurement": None },
             "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",           "transform": None,  "state_class": None,               "device_class": None,          "unit_of_measurement": None },
             "energy_total":     { "name": "Energy Total",     "source": "pvs", "raw_name": "ltea_3phsum_kwh", "transform": float, "state_class": "total_increasing", "device_class": "energy",      "unit_of_measurement": "kWh" },
