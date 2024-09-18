@@ -109,7 +109,7 @@ PVS_METADATA = {
             "serial_number":    { "name": "Serial Number",    "source": "pvs", "raw_name": "SERIAL",            "transform": None,                                                    "state_class": None,               "device_class": None,          "unit_of_measurement": None },
             "software_version": { "name": "Software Version", "source": "pvs", "raw_name": "SWVER",             "transform": None,                                                    "state_class": None,               "device_class": None,          "unit_of_measurement": None },
             "inverter_total":   { "name": "Inverter Total",   "source": "ess", "raw_name": "dc_input_total",    "transform": None,                                                    "state_class": "total_increasing", "device_class": "energy",      "unit_of_measurement": "kWh" }, # Comes from modbus register
-            "charge_total":     { "name": "Charge Total",     "source": "ess", "raw_name": "dc_output_today",   "transform": None,                                                    "state_class": "total_increasing", "device_class": "energy",      "unit_of_measurement": "kWh" }, # Comes from modbus register
+            "charge_total":     { "name": "Charge Total",     "source": "ess", "raw_name": "dc_output_total",   "transform": None,                                                    "state_class": "total_increasing", "device_class": "energy",      "unit_of_measurement": "kWh" }, # Comes from modbus register
             "power":            { "name": "Power",            "source": "ess", "raw_name": "battery_power_net", "transform": None,                                                    "state_class": "measurement",      "device_class": "power",       "unit_of_measurement": "kW" }, # Comes from modbus register
             "charge":           { "name": "Charge",           "source": "ess", "raw_name": "",                  "transform": lambda _: manual_average(PVS_DATA, "ess_bms", "charge"), "state_class": None,               "device_class": "battery",     "unit_of_measurement": "%" }, # Calculated as average of ess_bms/charge
             "health":           { "name": "Health",           "source": "ess", "raw_name": "",                  "transform": lambda _: manual_average(PVS_DATA, "ess_bms", "health"), "state_class": None,               "device_class": "measurement", "unit_of_measurement": "%" }, # Calculated as average of ess_bms/health
@@ -298,6 +298,7 @@ for battery in range(ESS_BATTERY_COUNT):
 PVS_DATA = {}
 ESS_DATA = {}
 PVS_DATA_VALID = False
+ESS_DATA_SAMPLED = False
 ESS_DATA_VALID = not ESS_ENABLED
 
 
@@ -331,7 +332,7 @@ def pvs_process_response(response):
         PVS_DATA[device_key]['last_sample_time'] = time.time()
         for field in PVS_METADATA[device_type]['fields']:
             field_metadata = PVS_METADATA[device_type]['fields'][field]
-            if field_metadata['source'] == "pvs":
+            if field_metadata['source'] == "pvs" and field_metadata['raw_name'] != "" and field_metadata['raw_name'] in device:
                 value = device[field_metadata['raw_name']]
                 if field_metadata['transform'] is not None:
                     value = field_metadata['transform'](value)
@@ -346,6 +347,7 @@ async def pvs_sample():
             async with session.get("http://192.168.1.13/cgi-bin/dl_cgi?Command=DeviceList", timeout=120) as response:
                 pvs_process_response(await response.json())
                 PVS_DATA_VALID = True
+                merge_ess_into_pvs()
         sleep_time = target_time - time.time()
         await asyncio.sleep(sleep_time)
         target_time += PVS_SAMPLE_PERIOD
@@ -430,11 +432,46 @@ async def ess_read_registers(modbus, registers):
     return data
 
 
+def merge_ess_into_pvs():
+    global ESS_DATA_VALID
+    if PVS_DATA_VALID and ESS_DATA_SAMPLED:
+        battery_index = 1
+        charge_values = []
+        health_values = []
+        for device_key in PVS_DATA:
+            device_type, _ = split_device_key(device_key)
+            for field in PVS_METADATA[device_type]['fields']:
+                field_metadata = PVS_METADATA[device_type]['fields'][field]
+                if field_metadata['source'] == "ess" and field_metadata['raw_name'] != "":
+                    raw_field_name = field_metadata['raw_name']
+                    if "%d" in raw_field_name:
+                        raw_field_name = raw_field_name % battery_index
+                    value = ESS_DATA[raw_field_name]
+                    if field_metadata['transform'] is not None:
+                        value = field_metadata['transform'](value)
+                    PVS_DATA[device_key][field] = value
+                    if device_type == "ess_bms":
+                        if field == "charge":
+                            charge_values.append(value)
+                        elif field == "health":
+                            health_values.append(value)
+            if device_type == "ess_bms":
+                battery_index += 1
+        for device_key in PVS_DATA:
+            device_type, _ = split_device_key(device_key)
+            for field in PVS_METADATA[device_type]['fields']:
+                field_metadata = PVS_METADATA[device_type]['fields'][field]
+                if field_metadata['source'] == "ess" and field_metadata['raw_name'] == "":
+                    PVS_DATA[device_key][field] = field_metadata['transform'](None)
+        ESS_DATA_VALID = True
+
+
 async def ess_sample():
     if not ESS_ENABLED:
         return
     global PVS_DATA
     global ESS_DATA
+    global ESS_DATA_SAMPLED
     global ESS_DATA_VALID
     host = ESS_HOST
     if host == "":
@@ -443,36 +480,8 @@ async def ess_sample():
     target_time = time.time() + ESS_SAMPLE_PERIOD
     while True:
         ESS_DATA = await ess_read_registers(modbus, ESS_REGISTERS_TO_READ)
-        if PVS_DATA_VALID:
-            battery_index = 1
-            charge_values = []
-            health_values = []
-            for device_key in PVS_DATA:
-                device_type, _ = split_device_key(device_key)
-                for field in PVS_METADATA[device_type]['fields']:
-                    field_metadata = PVS_METADATA[device_type]['fields'][field]
-                    if field_metadata['source'] == "ess" and field_metadata['raw_name'] != "":
-                        raw_field_name = field_metadata['raw_name']
-                        if "%d" in raw_field_name:
-                            raw_field_name = raw_field_name % battery_index
-                        value = ESS_DATA[raw_field_name]
-                        if field_metadata['transform'] is not None:
-                            value = field_metadata['transform'](value)
-                        PVS_DATA[device_key][field] = value
-                        if device_type == "ess_bms":
-                            if field == "charge":
-                                charge_values.append(value)
-                            elif field == "health":
-                                health_values.append(value)
-                if device_type == "ess_bms":
-                    battery_index += 1
-            for device_key in PVS_DATA:
-                device_type, _ = split_device_key(device_key)
-                for field in PVS_METADATA[device_type]['fields']:
-                    field_metadata = PVS_METADATA[device_type]['fields'][field]
-                    if field_metadata['source'] == "ess" and field_metadata['raw_name'] == "":
-                        PVS_DATA[device_key][field] = field_metadata['transform'](None)
-            ESS_DATA_VALID = True
+        ESS_DATA_SAMPLED = True
+        merge_ess_into_pvs()
         sleep_time = target_time - time.time()
         await asyncio.sleep(sleep_time)
         target_time += ESS_SAMPLE_PERIOD
